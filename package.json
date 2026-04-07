@@ -14,6 +14,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@elysiajs/eden": "^1.4.9",
+    "@neondatabase/serverless": "^1.0.2",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
@@ -21,10 +23,16 @@
     "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
     "@tanstack/router-plugin": "^1.167.12",
+    "better-auth": "^1.6.0",
+    "drizzle-orm": "^0.45.2",
+    "elysia": "^1.4.28",
+    "inngest": "^4.2.0",
     "lucide-react": "^1.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "tailwindcss": "^4.2.2"
+    "stripe": "^22.0.0",
+    "tailwindcss": "^4.2.2",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
@@ -35,6 +43,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
+    "drizzle-kit": "^0.31.10",
     "jsdom": "^29.0.2",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
