@@ -9,6 +9,7 @@ import {
   createOneTimeCheckoutSession,
   retrieveCheckoutSession,
 } from '@/lib/payments';
+import { inngest } from '@/lib/jobs';
 
 export const api = new Elysia({ prefix: '/api' })
   // Mount Better Auth to handle /api/auth/* routes
@@ -139,16 +140,16 @@ export const api = new Elysia({ prefix: '/api' })
           currency: string;
         };
 
-        // await inngest.send({
-        //   name: 'stripe/charge.refunded',
-        //   data: {
-        //     chargeId: charge.id,
-        //     paymentIntentId: charge.payment_intent,
-        //     amountRefunded: charge.amount_refunded,
-        //     originalAmount: charge.amount,
-        //     currency: charge.currency,
-        //   },
-        // });
+        await inngest.send({
+          name: 'stripe/charge.refunded',
+          data: {
+            chargeId: charge.id,
+            paymentIntentId: charge.payment_intent,
+            amountRefunded: charge.amount_refunded,
+            originalAmount: charge.amount,
+            currency: charge.currency,
+          },
+        });
       }
 
       return { received: true };
@@ -214,14 +215,14 @@ export const api = new Elysia({ prefix: '/api' })
       });
 
       // Trigger background processing
-      // await inngest.send({
-      //   name: 'purchase/completed',
-      //   data: {
-      //     userId: session.user.id,
-      //     tier,
-      //     sessionId,
-      //   },
-      // });
+      await inngest.send({
+        name: 'purchase/completed',
+        data: {
+          userId: session.user.id,
+          tier,
+          sessionId,
+        },
+      });
 
       return { success: true, tier };
     },
