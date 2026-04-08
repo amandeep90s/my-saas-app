@@ -5,7 +5,7 @@ export function ProfileForm({ currentName }: { currentName: string }) {
   const [name, setName] = useState(currentName);
   const updateProfile = useUpdateProfile();
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateProfile.mutate({ name });
   };
