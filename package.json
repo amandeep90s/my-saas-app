@@ -15,7 +15,9 @@
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "inngest:dev": "inngest dev -u http://localhost:3000/api/inngest --no-discovery",
+    "stripe:dev": "stripe listen --forward-to localhost:3000/api/payments/webhook"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.9",
@@ -50,6 +52,7 @@
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^5.1.4",
     "drizzle-kit": "^0.31.10",
+    "inngest-cli": "^1.17.9",
     "jsdom": "^29.0.2",
     "pg": "^8.20.0",
     "prettier": "^3.8.1",
@@ -64,5 +67,8 @@
       "esbuild",
       "lightningcss"
     ]
-  }
+  },
+  "trustedDependencies": [
+    "inngest-cli"
+  ]
 }

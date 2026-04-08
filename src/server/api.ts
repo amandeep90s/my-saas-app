@@ -9,7 +9,13 @@ import {
   createOneTimeCheckoutSession,
   retrieveCheckoutSession,
 } from '@/lib/payments';
-import { inngest } from '@/lib/jobs';
+import { inngest, functions } from '@/lib/jobs';
+import { serve } from 'inngest/bun';
+
+const inngestHandler = serve({
+  client: inngest,
+  functions,
+});
 
 export const api = new Elysia({ prefix: '/api' })
   // Mount Better Auth to handle /api/auth/* routes
@@ -22,8 +28,15 @@ export const api = new Elysia({ prefix: '/api' })
   .onRequest(({ request }) => {
     console.log(`[API] ${request.method} ${request.url}`);
   })
+
+  // Handle errors gracefully and log them for debugging
   .onError(({ code, error, path }) => {
     console.error(`[API] Error ${code} on ${path}:`, error);
+  })
+
+  // Inngest endpoint to receive and process background job events
+  .all('/inngest', async (ctx) => {
+    return inngestHandler(ctx.request);
   })
 
   // Health check endpoint to verify the API is running
